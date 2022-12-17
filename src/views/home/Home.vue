@@ -3,6 +3,7 @@
     <home-nav-bar />
     <better-scroll class="scroll" ref="scrollRef">
       <home-swipe class="banner" :banner-arr="bannerArr" />
+      <home-recommend :recommend-arr="recommendArr" />
     </better-scroll>
   </div>
 </template>
@@ -10,6 +11,7 @@
 <script>
 import HomeNavBar from './components/HomeNavBar'
 import HomeSwipe from './components/HomeSwipe'
+import HomeRecommend from './components/HomeRecommend'
 
 import BetterScroll from 'components/common/BetterScroll/BetterScroll'
 
@@ -19,13 +21,15 @@ export default {
   name: 'Home',
   data () {
     return {
-      bannerArr: [] // 存储首页轮播图数据
+      bannerArr: [], // 存储首页轮播图数据
+      recommendArr: []
     }
   },
   components: {
     HomeNavBar,
     BetterScroll,
-    HomeSwipe
+    HomeSwipe,
+    HomeRecommend
   },
   created () {
     this.getHomeMultidata() // 请求首页数据
@@ -33,9 +37,10 @@ export default {
   methods: {
     getHomeMultidata () {
       getHomeMultidata().then(res => {
-        const { data: { banner }, success } = res
+        const { data: { banner, recommend }, success } = res
         if (success) {
           this.bannerArr = banner.list
+          this.recommendArr = recommend.list
         }
       })
     }

@@ -1,5 +1,5 @@
 <template>
-  <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+  <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#ff6700">
     <van-swipe-item v-for="item in bannerArr" :key="item.image">
       <van-image
         fit="contain"
@@ -26,10 +26,6 @@ export default {
 
 <style>
   .my-swipe .van-swipe-item {
-    color: #fff;
-    font-size: 20px;
-    line-height: 150px;
-    text-align: center;
     background-color: #fff;
   }
 </style>

@@ -30,5 +30,6 @@ export default {
 </script>
 
 <style lang="less">
-  @import url('./assets/fonts/iconfont.css');
+  // @import url('./assets/fonts/iconfont.css');
+  @import url('./assets/css/normalize.css');
 </style>

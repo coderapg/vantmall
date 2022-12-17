@@ -1,8 +1,8 @@
 @font-face {
   font-family: "icon"; /* Project id 2783112 */
-  src: url('iconfont.woff2?t=1671262816619') format('woff2'),
-       url('iconfont.woff?t=1671262816619') format('woff'),
-       url('iconfont.ttf?t=1671262816619') format('truetype');
+  src: url('iconfont.woff2?t=1671279020445') format('woff2'),
+       url('iconfont.woff?t=1671279020445') format('woff'),
+       url('iconfont.ttf?t=1671279020445') format('truetype');
 }
 
 .icon {
@@ -13,8 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-fenlei:before {
-  content: "\e630";
+.icon-31wode:before {
+  content: "\e619";
+}
+
+.icon-home_light:before {
+  content: "\e7d4";
+}
+
+.icon-fenlei2:before {
+  content: "\e71b";
 }
 
 .icon-shoucang1:before {
@@ -51,10 +59,6 @@
 
 .icon-tuihuotuikuan:before {
   content: "\e7af";
-}
-
-.icon-gouwuche1:before {
-  content: "\e638";
 }
 
 .icon-gouwuche2:before {

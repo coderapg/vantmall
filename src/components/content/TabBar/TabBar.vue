@@ -19,12 +19,12 @@ export default {
       tabIcons: [
         {
           title: '首页',
-          name: 'shouye',
+          name: 'home_light',
           path: '/home'
         },
         {
           title: '分类',
-          name: 'fenlei',
+          name: 'fenlei2',
           path: '/category'
         },
         {
@@ -34,7 +34,7 @@ export default {
         },
         {
           title: '我的',
-          name: 'wode',
+          name: '31wode',
           path: '/mine'
         }
       ]
@@ -52,6 +52,7 @@ export default {
   .tab-bar {
     height: 49px;
     background-color: #f8f8f8;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     .van-tabbar-item {
       /deep/ .van-tabbar-item__text {
         display: flex;
@@ -59,7 +60,7 @@ export default {
         justify-content: center;
         align-items: center;
         .icon {
-          font-size: 20px;
+          font-size: 22px;
         }
         span {
           margin-top: 3px;

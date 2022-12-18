@@ -1,9 +1,12 @@
 <template>
   <div id="home">
     <home-nav-bar />
-    <better-scroll class="scroll" ref="scrollRef">
+    <better-scroll class="scroll" :is-click="true" ref="scrollRef">
       <home-swipe class="banner" :banner-arr="bannerArr" />
       <home-recommend :recommend-arr="recommendArr" />
+      <home-popular />
+      <home-tab :tabs-arr="tabsArr" />
+      <div style="height: 500px;"></div>
     </better-scroll>
   </div>
 </template>
@@ -12,6 +15,8 @@
 import HomeNavBar from './components/HomeNavBar'
 import HomeSwipe from './components/HomeSwipe'
 import HomeRecommend from './components/HomeRecommend'
+import HomePopular from './components/HomePopular'
+import HomeTab from './components/HomeTab'
 
 import BetterScroll from 'components/common/BetterScroll/BetterScroll'
 
@@ -22,14 +27,34 @@ export default {
   data () {
     return {
       bannerArr: [], // 存储首页轮播图数据
-      recommendArr: []
+      recommendArr: [], // 存储首页推荐数据
+      // 存储首页tab切换数据
+      tabsArr: [
+        {
+          title: '流行',
+          pop: 'pop',
+          page: 0
+        },
+        {
+          title: '新款',
+          pop: 'new',
+          page: 0
+        },
+        {
+          title: '精品',
+          pop: 'sell',
+          page: 0
+        }
+      ]
     }
   },
   components: {
     HomeNavBar,
     BetterScroll,
     HomeSwipe,
-    HomeRecommend
+    HomeRecommend,
+    HomePopular,
+    HomeTab
   },
   created () {
     this.getHomeMultidata() // 请求首页数据
@@ -55,7 +80,7 @@ export default {
     .scroll {
       height: calc(100% - 44px - 49px);
       .banner {
-        height: 214px;
+        height: 195px;
         overflow: hidden;
       }
     }

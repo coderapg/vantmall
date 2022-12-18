@@ -16,9 +16,18 @@ export default {
       BScroll: null
     }
   },
+  props: {
+    // 是否允许better-scroll触发原生click事件
+    isClick: {
+      type: Boolean,
+      default: false,
+      required: true
+    }
+  },
   mounted () {
-    this.BScroll = new BetterScroll(this.$refs.wrapper)
-    console.log('mounted===', this.BScroll)
+    this.BScroll = new BetterScroll(this.$refs.wrapper, {
+      click: this.isClick
+    })
   }
 }
 </script>

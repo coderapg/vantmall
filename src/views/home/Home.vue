@@ -7,19 +7,12 @@
       <home-popular />
       <home-tab class="home-tab" :tabs-arr="['流行', '新款', '推荐']" :offsetTop="40" @handleTabClick="handleTabClick" :active-goods="activeGoods" ref="homeTab" />
     </pull-refresh>
-    <!-- <van-pull-refresh class="pull-content" v-model="refreshing" @refresh="onRefresh">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad">
-        <home-tab :tabs-arr="['流行', '新款', '推荐']" @handleTabClick="handleTabClick" :active-goods="activeGoods" ref="homeTab" />
-      </van-list>
-    </van-pull-refresh> -->
   </div>
 </template>
 
 <script>
+import { getHomeMultidata, getHomeTabsData } from 'https/home'
+
 import HomeNavBar from './components/HomeNavBar'
 import HomeSwipe from './components/HomeSwipe'
 import HomeRecommend from './components/HomeRecommend'
@@ -28,15 +21,10 @@ import HomeTab from './components/HomeTab'
 
 import PullRefresh from 'components/common/PullRefresh/PullRefresh'
 
-import { getHomeMultidata, getHomeTabsData } from 'https/home'
-
 export default {
   name: 'Home',
   data () {
     return {
-      loading: false,
-      finished: false,
-      refreshing: false,
       bannerArr: [], // 存储首页轮播图数据
       recommendArr: [], // 存储首页推荐数据
       // 存储首页tab切换数据
@@ -45,9 +33,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      curTab: 'pop', // 当前被选中的tab类型
-      showTab: false, // 是否显示顶部的吸顶的tab栏
-      tabOffsetTop: 0 // tab栏距离顶部的位置
+      curTab: 'pop' // 当前被选中的tab类型
     }
   },
   components: {
@@ -89,25 +75,6 @@ export default {
         }
       })
     },
-    onLoad () {
-      setTimeout(() => {
-        if (this.refreshing) {
-          this.list = []
-          this.refreshing = false
-        }
-        for (let i = 0; i < 10; i++) {
-        }
-        this.loading = false
-      }, 1000)
-    },
-    onRefresh () {
-      // 清空列表数据
-      this.finished = false
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      this.loading = true
-      this.onLoad()
-    },
     // 切换tab栏
     handleTabClick (index) {
       switch (index) {
@@ -121,15 +88,7 @@ export default {
           this.curTab = 'sell'
           break
       }
-    },
-    betterScrollScroll (position) {
-      console.log('发出事件', Math.abs(position), this.tabOffsetTop)
-      this.showTab = Math.abs(position) > (this.tabOffsetTop - 44)
     }
-    // handleBannerLoad () {
-    //   this.tabOffsetTop = this.$refs.homeTab.$el.offsetTop
-    //   console.log('发射过来', this.$refs.homeTab.$el.offsetTop)
-    // }
   }
 }
 </script>

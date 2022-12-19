@@ -14,7 +14,6 @@ export default {
   name: 'PullRefresh',
   data () {
     return {
-      list: [],
       finished: false,
       refreshing: false
     }
@@ -25,12 +24,9 @@ export default {
         if (this.refreshing) {
           this.refreshing = false
         }
-        for (let i = 0; i < 10; i++) {
-        }
       }, 1000)
     },
     onRefresh () {
-      // 清空列表数据
       this.finished = false
       // 重新加载数据
       this.onLoad()

@@ -3,8 +3,7 @@
     <van-swipe-item v-for="item in bannerArr" :key="item.image">
       <van-image
         fit="contain"
-        :src="item.image"
-        @load="handleBannerLoad" />
+        :src="item.image" />
     </van-swipe-item>
   </van-swipe>
 </template>
@@ -25,14 +24,6 @@ export default {
         return []
       },
       required: true
-    }
-  },
-  methods: {
-    handleBannerLoad () {
-      if (!this.isLoad) {
-        this.$emit('handleBannerLoad')
-        this.isLoad = true
-      }
     }
   }
 }

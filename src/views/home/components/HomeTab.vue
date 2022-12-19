@@ -1,5 +1,5 @@
 <template>
-  <van-tabs v-model="active" @click="handleTabClick" :sticky="true" >
+  <van-tabs v-model="active" @click="handleTabClick" sticky :offset-top="offsetTop">
     <van-tab v-for="(item, index) in tabsArr" :title="item" :key="index">
       <goods-list :active-goods="activeGoods" />
     </van-tab>
@@ -20,6 +20,11 @@ export default {
     GoodsList
   },
   props: {
+    offsetTop: {
+      type: Number,
+      default: 0,
+      required: true
+    },
     tabsArr: {
       type: Array,
       default () {

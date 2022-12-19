@@ -34,6 +34,14 @@ export default {
       probeType: this.probeType,
       click: this.isClick
     })
+    this.BScroll.on('scroll', position => {
+      this.$emit('betterScrollScroll', position.y)
+    })
+  },
+  methods: {
+    refresh () {
+      this.BScroll && this.BScroll.refresh()
+    }
   }
 }
 </script>

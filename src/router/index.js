@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const Login = () => import('../views/Login/Login')
 const Home = () => import('../views/home/Home')
+const Detail = () => import('../views/detail/Detail')
 const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
 const Mine = () => import('../views/mine/Mine')
@@ -17,6 +18,10 @@ const routes = [
   {
     path: '/home',
     component: Home
+  },
+  {
+    path: '/detail',
+    component: Detail
   },
   {
     path: '/category',

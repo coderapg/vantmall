@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list-item" v-if="Object.keys(goodsItem).length > 0">
-    <a :href="goodsItem.link">
+    <div class="list-item-content" @click="handleGoodsListItmClick">
       <van-image fit="contain" :src="goodsItem.show.img" />
       <div class="goods-item-info">
         <p class="title">{{ goodsItem.title }}</p>
@@ -13,7 +13,7 @@
           <span class="buy">{{ goodsItem.cfav }}+人已购买</span>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -29,6 +29,17 @@ export default {
       },
       required: true
     }
+  },
+  methods: {
+    handleGoodsListItmClick () {
+      const { iid } = this.goodsItem
+      this.$router.push({
+        path: '/detail',
+        query: {
+          iid
+        }
+      })
+    }
   }
 }
 </script>
@@ -39,7 +50,7 @@ export default {
     width: 49%;
     border-radius: 10px;
     overflow: hidden;
-    a {
+    .list-item-content {
       display: block;
       .goods-item-info {
         padding: 2px 6px;

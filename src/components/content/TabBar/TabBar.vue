@@ -1,6 +1,6 @@
 <template>
   <van-tabbar v-model="active" active-color="#ff6700" inactive-color="#333" class="tab-bar">
-    <van-tabbar-item v-for="(item, index) in tabIcons" :key="index" :to="item.path" @click="handleTabBarItemClick(index)">
+    <van-tabbar-item v-for="(item, index) in tabIcons" :key="index" :to="item.path">
       <template>
         <van-icon class-prefix="icon" :name="item.name" />
       </template>
@@ -38,11 +38,6 @@ export default {
           path: '/mine'
         }
       ]
-    }
-  },
-  methods: {
-    handleTabBarItemClick (index) {
-      this.$emit('handleTabBarItemClick', index)
     }
   }
 }

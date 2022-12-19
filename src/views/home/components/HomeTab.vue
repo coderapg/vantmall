@@ -1,16 +1,23 @@
 <template>
-  <van-tabs v-model="active" @click="handleTabClick">
-    <van-tab v-for="item in tabsArr" :title="item.title" :key="item.pop">{{ item.title }}</van-tab>
+  <van-tabs v-model="active" @click="handleTabClick" :sticky="true" >
+    <van-tab v-for="(item, index) in tabsArr" :title="item" :key="index">
+      <goods-list :active-goods="activeGoods" />
+    </van-tab>
   </van-tabs>
 </template>
 
 <script>
+import GoodsList from 'components/content/GoodsList/GoodsList'
+
 export default {
   name: 'HomeTab',
   data () {
     return {
       active: 0
     }
+  },
+  components: {
+    GoodsList
   },
   props: {
     tabsArr: {
@@ -19,15 +26,19 @@ export default {
         return []
       },
       required: true
+    },
+    activeGoods: {
+      type: Array,
+      default () {
+        return []
+      },
+      required: true
     }
   },
   methods: {
-    handleTabClick (name, title) {
-      console.log('切换', name, title)
-      // this.active = index
+    handleTabClick (index) {
+      this.$emit('handleTabClick', index)
     }
   }
 }
 </script>
-
-<style lang="less" scoped></style>

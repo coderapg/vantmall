@@ -7,3 +7,14 @@ export function getHomeMultidata () {
     url: '/home/multidata'
   })
 }
+
+// 请求首页中tab切换数据
+export function getHomeTabsData (type, page) {
+  return request({
+    url: '/home/data',
+    params: {
+      type,
+      page
+    }
+  })
+}

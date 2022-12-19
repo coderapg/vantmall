@@ -24,7 +24,7 @@ export default {
 
 <style lang="less" scoped>
   .home-recommend {
-    margin: 10px 0px;
+    margin-top: 10px;
     /deep/ .van-grid-item {
       .van-icon {
         font-size: 70px;

@@ -17,6 +17,11 @@ export default {
     }
   },
   props: {
+    probeType: {
+      type: Number,
+      default: 0,
+      required: true
+    },
     // 是否允许better-scroll触发原生click事件
     isClick: {
       type: Boolean,
@@ -26,6 +31,7 @@ export default {
   },
   mounted () {
     this.BScroll = new BetterScroll(this.$refs.wrapper, {
+      probeType: this.probeType,
       click: this.isClick
     })
   }

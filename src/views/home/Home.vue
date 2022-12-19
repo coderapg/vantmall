@@ -1,12 +1,13 @@
 <template>
   <div id="home">
     <home-nav-bar />
-    <better-scroll class="scroll" :is-click="true" ref="scrollRef">
+    <home-tab :tabs-arr="['流行', '新款', '推荐']" @handleTabClick="handleTabClick" :active-goods="activeGoods" v-show="false" />
+    <better-scroll class="scroll" :is-click="true" ref="scrollRef" :probe-type="3">
       <home-swipe class="banner" :banner-arr="bannerArr" />
       <home-recommend :recommend-arr="recommendArr" />
       <home-popular />
-      <home-tab :tabs-arr="tabsArr" />
-      <div style="height: 500px;"></div>
+      <home-tab :tabs-arr="['流行', '新款', '推荐']" @handleTabClick="handleTabClick" :active-goods="activeGoods" />
+      <div style="height: 1000px;"></div>
     </better-scroll>
   </div>
 </template>
@@ -20,7 +21,7 @@ import HomeTab from './components/HomeTab'
 
 import BetterScroll from 'components/common/BetterScroll/BetterScroll'
 
-import { getHomeMultidata } from 'https/home'
+import { getHomeMultidata, getHomeTabsData } from 'https/home'
 
 export default {
   name: 'Home',
@@ -29,23 +30,12 @@ export default {
       bannerArr: [], // 存储首页轮播图数据
       recommendArr: [], // 存储首页推荐数据
       // 存储首页tab切换数据
-      tabsArr: [
-        {
-          title: '流行',
-          pop: 'pop',
-          page: 0
-        },
-        {
-          title: '新款',
-          pop: 'new',
-          page: 0
-        },
-        {
-          title: '精品',
-          pop: 'sell',
-          page: 0
-        }
-      ]
+      homeGoods: {
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] }
+      },
+      curTab: 'pop' // 当前被选中的tab类型
     }
   },
   components: {
@@ -56,8 +46,16 @@ export default {
     HomePopular,
     HomeTab
   },
+  computed: {
+    activeGoods () {
+      return this.homeGoods[this.curTab].list
+    }
+  },
   created () {
     this.getHomeMultidata() // 请求首页数据
+    this.getHomeTypePage('pop')
+    this.getHomeTypePage('new')
+    this.getHomeTypePage('sell')
   },
   methods: {
     getHomeMultidata () {
@@ -68,6 +66,30 @@ export default {
           this.recommendArr = recommend.list
         }
       })
+    },
+    getHomeTypePage (type) {
+      const page = this.homeGoods[type].page + 1
+      getHomeTabsData(type, page).then(res => {
+        const { data: { list }, success } = res
+        if (success) {
+          this.homeGoods[type].list.push(...list)
+          this.homeGoods[type].page += 1
+        }
+      })
+    },
+    // 切换tab栏
+    handleTabClick (index) {
+      switch (index) {
+        case 0:
+          this.curTab = 'pop'
+          break
+        case 1:
+          this.curTab = 'new'
+          break
+        case 2:
+          this.curTab = 'sell'
+          break
+      }
     }
   }
 }

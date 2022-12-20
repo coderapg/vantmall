@@ -5,11 +5,13 @@
     </template>
     <template #title>
       <div class="detail-tabs">
-        <div class="detail-tab-item" v-for="(item, index) in detailTabs" :key="index" :class="{ actived: tabActive === index }" @click="handleDetailTabItemClick(index)">{{ item }}</div>
+        店铺详情
       </div>
     </template>
     <template #right>
-      <van-icon class-prefix="icon" name="gengduo" />
+      <van-badge :content="3" max="99">
+        <van-icon name="ellipsis" />
+      </van-badge>
     </template>
   </van-nav-bar>
 </template>
@@ -18,18 +20,10 @@
 import { handleBackMixin } from 'common/mixin'
 
 export default {
-  name: 'DetailNavBar',
+  name: 'ShopNavBar',
   mixins: [handleBackMixin],
   data () {
-    return {
-      tabActive: 0,
-      detailTabs: ['商品', '参数', '评论', '推荐']
-    }
-  },
-  methods: {
-    handleDetailTabItemClick (index) {
-      this.tabActive = index
-    }
+    return {}
   }
 }
 </script>
@@ -47,21 +41,17 @@ export default {
         flex: 1;
         .detail-tabs {
           display: flex;
-          .detail-tab-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            color: #999;
-            font-size: 14px;
-          }
-          .actived {
-            color: #ff6700;
-          }
+          justify-content: center;
+          align-items: center;
+          color: #404040;
         }
       }
       .van-nav-bar__right {
-        opacity: 0;
+        .van-icon  {
+          font-size: 24px;
+          color: #4a4a4a;
+          font-weight: bold;
+        }
       }
     }
   }

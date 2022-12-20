@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive exclude="etail">
       <router-view />
     </keep-alive>
     <tab-bar />
@@ -21,4 +21,9 @@ export default {
 <style lang="less">
   // @import url('./assets/fonts/iconfont.css');
   @import url('./assets/css/normalize.css');
+
+  #app {
+    width: 100vw;
+    height: 100vh;
+  }
 </style>

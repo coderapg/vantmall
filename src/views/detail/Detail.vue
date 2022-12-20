@@ -3,6 +3,7 @@
     <detail-nav-bar />
     <pull-refresh class="pull-refresh">
       <detail-swipe :banner-arr="bannerArr" />
+      <div @click="handleToShop">商铺</div>
     </pull-refresh>
   </div>
 </template>
@@ -41,6 +42,9 @@ export default {
         this.bannerArr = itemInfo.topImages
         console.log('---', columns)
       })
+    },
+    handleToShop () {
+      this.$router.push('/shop')
     }
   }
 }

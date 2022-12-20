@@ -6,6 +6,7 @@ const Home = () => import('../views/home/Home')
 const Detail = () => import('../views/detail/Detail')
 const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
+const Shop = () => import('../views/shop/Shop')
 const Mine = () => import('../views/mine/Mine')
 
 Vue.use(VueRouter)
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/category',
     component: Category
+  },
+  {
+    path: '/shop',
+    component: Shop
   },
   {
     path: '/cart',

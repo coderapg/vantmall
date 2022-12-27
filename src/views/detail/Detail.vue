@@ -5,6 +5,7 @@
       <detail-swipe :banner-arr="bannerArr" />
       <div @click="handleToShop">商铺</div>
     </pull-refresh>
+    <detail-goods-action />
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import { getDetailData } from 'https/detail'
 
 import DetailNavBar from './components/DetailNavBar'
 import DetailSwipe from './components/DetailSwipe'
+import DetailGoodsAction from './components/DetailGoodsAction'
 
 import PullRefresh from 'components/common/PullRefresh/PullRefresh'
 
@@ -27,7 +29,8 @@ export default {
   components: {
     DetailNavBar,
     PullRefresh,
-    DetailSwipe
+    DetailSwipe,
+    DetailGoodsAction
   },
   created () {
     const { query: { iid } } = this.$route

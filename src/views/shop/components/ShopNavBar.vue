@@ -1,10 +1,10 @@
 <template>
-  <van-nav-bar class="detail-nav-bar">
+  <van-nav-bar class="shop-nav-bar">
     <template #left>
       <van-icon name="arrow-left" @click="handleBack" />
     </template>
     <template #title>
-      <div class="detail-tabs">
+      <div class="shop-title">
         店铺详情
       </div>
     </template>
@@ -29,8 +29,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .detail-nav-bar {
+  .shop-nav-bar {
+    background-color: #f4f4f4;
     /deep/ .van-nav-bar__content {
+      height: 44px;
       .van-nav-bar__left {
         .van-icon {
           font-size: 24px;
@@ -39,7 +41,7 @@ export default {
       }
       .van-nav-bar__title {
         flex: 1;
-        .detail-tabs {
+        .shop-title {
           display: flex;
           justify-content: center;
           align-items: center;

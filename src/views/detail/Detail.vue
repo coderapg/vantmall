@@ -9,6 +9,7 @@
       </div>
       <detail-goods-info :goods-info="goodsInfo" />
       <detail-param-info :param-info="paramInfo" ref="paramInfo" />
+      <detail-comments-rate :comment-info="commentInfo" ref="commentInfo" />
     </van-list>
     <detail-goods-action />
   </div>
@@ -24,6 +25,7 @@ import DetailSeller from './components/DetailSeller'
 import DetailWaresRelated from './components/DetailWaresRelated'
 import DetailGoodsInfo from './components/DetailGoodsInfo'
 import DetailParamInfo from './components/DetailParamInfo'
+import DetailCommentsRate from './components/DetailCommentsRate'
 
 export default {
   name: 'Detail',
@@ -34,7 +36,8 @@ export default {
       detailWaresInfo: {},
       sellerInfo: {},
       goodsInfo: {},
-      paramInfo: {}
+      paramInfo: {},
+      commentInfo: {}
     }
   },
   components: {
@@ -44,7 +47,8 @@ export default {
     DetailSeller,
     DetailWaresRelated,
     DetailGoodsInfo,
-    DetailParamInfo
+    DetailParamInfo,
+    DetailCommentsRate
   },
   created () {
     const { query: { iid } } = this.$route
@@ -53,8 +57,8 @@ export default {
   methods: {
     getDetailData (iid) {
       getDetailData(iid).then(res => {
-        // isLogin, promotions, rate, shopInfo, skuInfo, topBar
-        const { columns, detailInfo, itemInfo, itemParams, shopInfo } = res.result
+        // isLogin, promotions, shopInfo, skuInfo, topBar
+        const { columns, detailInfo, itemInfo, itemParams, rate, shopInfo } = res.result
         // 1. 详情页轮播图数据
         this.bannerArr = itemInfo.topImages
         // 2. 获取商品信息
@@ -65,6 +69,9 @@ export default {
         this.goodsInfo = detailInfo
         // 5. 保存商品的参数信息
         this.paramInfo = new GoodsParam(itemParams.info, itemParams.rule)
+        // 6. 保存评论信息
+        this.commentInfo = rate.cRate !== 0 ? rate.list[0] : {}
+        console.log('123---', this.commentInfo)
       })
     }
   }

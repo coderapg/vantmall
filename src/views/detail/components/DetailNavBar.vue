@@ -41,6 +41,7 @@ export default {
     right: 0;
     top: 0;
     /deep/ .van-nav-bar__content {
+      height: 44px;
       .van-nav-bar__left {
         .van-icon {
           font-size: 24px;

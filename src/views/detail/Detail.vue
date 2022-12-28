@@ -1,7 +1,7 @@
 <template>
-  <div id="detail">
+  <div id="detail" ref="detail">
     <detail-nav-bar />
-    <van-list offset="100" finished-text="没有更多了">
+    <van-list offset="300" finished-text="没有更多了">
       <detail-swipe :banner-arr="bannerArr" />
       <div class="detail-wares-related">
         <detail-wares-related :detailWaresInfo="detailWaresInfo" />
@@ -13,6 +13,7 @@
       <goods-list :active-goods="activeGoods" ref="goodsList" />
     </van-list>
     <detail-goods-action />
+    <back-top  v-show="backShow" />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import DetailParamInfo from './components/DetailParamInfo'
 import DetailCommentsRate from './components/DetailCommentsRate'
 
 import GoodsList from 'components/content/GoodsList/GoodsList'
+import BackTop from 'components/common/backTop/BackTop'
 
 export default {
   name: 'Detail',
@@ -41,7 +43,8 @@ export default {
       goodsInfo: {},
       paramInfo: {},
       commentInfo: {},
-      activeGoods: []
+      activeGoods: [],
+      backShow: false
     }
   },
   components: {
@@ -53,12 +56,16 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentsRate,
-    GoodsList
+    GoodsList,
+    BackTop
   },
   created () {
     const { query: { iid } } = this.$route
     this.getDetailData(iid)
     this.recommendingCommodities(iid)
+  },
+  mounted () {
+    window.addEventListener('scroll', this.vantScroll, true)
   },
   methods: {
     getDetailData (iid) {
@@ -87,6 +94,15 @@ export default {
           this.activeGoods = list
         }
       })
+    },
+    // 侦听滚动
+    vantScroll (event) {
+      const { scrollTop } = event.target
+      if (scrollTop > 1000) {
+        this.backShow = true
+      } else {
+        this.backShow = false
+      }
     }
   }
 }
@@ -99,7 +115,19 @@ export default {
     right: 0;
     top: 0;
     bottom: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 9999;
+  }
+  .van-list {
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 44px;
+    bottom: 49px;
+    width: 100vw;
+    height: 574px;
+    overflow-y: auto;
   }
   .detail-wares-related {
     background-color: #f0f0f0;

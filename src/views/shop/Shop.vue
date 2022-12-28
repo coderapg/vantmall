@@ -1,7 +1,7 @@
 <template>
   <div class="shop">
     <shop-nav-bar />
-    <shop-info />
+    <shop-info :shop-info="shopInfo" />
   </div>
 </template>
 
@@ -9,11 +9,18 @@
 import ShopNavBar from './components/ShopNavBar'
 import ShopInfo from './components/ShopInfo'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'Stop',
   components: {
     ShopNavBar,
     ShopInfo
+  },
+  computed: {
+    ...mapState({
+      shopInfo: state => state.shopInfo
+    })
   }
 }
 </script>

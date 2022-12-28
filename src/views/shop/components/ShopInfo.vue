@@ -7,13 +7,13 @@
             src="https://img01.yzcdn.cn/vant/ipad.jpeg" />
         </template>
         <template #desc>
-          <div>信购数码配件专营店</div>
+          <div>{{ shopInfo.name }}</div>
         </template>
         <template #tags>
           <van-tag color="#ff6700" round type="primary">天猫</van-tag>
         </template>
         <template #price>
-          <div>粉丝数15.3万</div>
+          <div>粉丝数{{ shopInfo.cFans | toWan }}</div>
         </template>
         <template #num>
           <van-button text="订阅" color="#ff6700" icon="plus" round plain type="primary" size="small" />
@@ -21,7 +21,7 @@
       </van-card>
       <div class="info-foot">
         <p class="info-experience">
-          综合体验<van-rate readonly size="14" gutter="2px" color="#ff6700" allow-half void-icon="star" void-color="#d9d9d9" v-model="value" />
+          综合体验<van-rate readonly size="14" gutter="2px" color="#ff6700" allow-half void-icon="star" void-color="#d9d9d9" v-model="shopInfo.level" />
         </p>
         <p class="info-desc">
           <span>由天猫评估，含品质、物流、售后等多项内容，星星越多体验越好。</span>
@@ -30,59 +30,30 @@
       </div>
     </div>
     <div class="shop-desc">
-      <div class="shop-desc-item">
-        <span class="item-title">描述相符</span>
+      <div class="shop-desc-item" v-for="(item, index) in shopInfo.score" :key="index">
+        <span class="item-title">{{ item.name }}</span>
         <span class="item-length">
           <van-progress
-            :percentage="4.7 | percentageNum"
+            :percentage="item.score | percentageNum"
             stroke-width="10px"
             track-color="#f4f4f4"
             :show-pivot="false"
             color="linear-gradient(to right, #cced3c, #eb6f25)" />
         </span>
-        <span class="item-rate">4.7</span>
+        <span class="item-rate">{{ item.score }}</span>
         <span class="item-descs">低于同行-2.02%</span>
-      </div>
-      <div class="shop-desc-item">
-        <span class="item-title">服务态度</span>
-        <span class="item-length">
-          <van-progress
-            :percentage="4.8 | percentageNum"
-            stroke-width="10px"
-            track-color="#f4f4f4"
-            :show-pivot="false"
-            color="linear-gradient(to right, #cced3c, #eb6f25)" />
-        </span>
-        <span class="item-rate">4.8</span>
-        <span class="item-descs">低于同行-.075%</span>
-      </div>
-      <div class="shop-desc-item">
-        <span class="item-title">物流服务</span>
-        <span class="item-length">
-          <van-progress
-            :percentage="4.8 | percentageNum"
-            stroke-width="10px"
-            track-color="#f4f4f4"
-            :show-pivot="false"
-            color="linear-gradient(to right, #cced3c, #eb6f25)" />
-        </span>
-        <span class="item-rate">4.8</span>
-        <span class="item-descs">低于同行-.073%</span>
       </div>
     </div>
     <div class="base-info">
       <div class="base-info-title">基础信息</div>
       <div class="info-content">
         <div class="content-item">
-          <span class="item-title">掌柜名</span>
-          <span class="item-name">
-            <i></i>
-            信购数码配件专营店
-          </span>
+          <span class="item-title">店铺名</span>
+          <span class="item-name"><i></i>{{ shopInfo.name }}</span>
         </div>
         <div class="content-item">
           <span class="item-title">所在地</span>
-          <span class="item-name">广东省-深圳市</span>
+          <span class="item-name">{{ shopInfo.extra.sendAddress }}</span>
         </div>
         <div class="content-item">
           <span class="item-title">保证金</span>
@@ -118,7 +89,21 @@ export default {
       value: 4.7
     }
   },
+  props: {
+    shopInfo: {
+      type: Object,
+      default () {
+        return {}
+      },
+      required: true
+    }
+  },
   filters: {
+    toWan (val) {
+      let peop = ''
+      peop = val / 10000 >= 1 ? (val / 10000).toFixed(2) + '万' : val
+      return peop
+    },
     percentageNum (val) {
       return val * 20
     }

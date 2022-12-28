@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { SHOP_INFO } from '@/store/mutation-types'
 
 export default {
   name: 'DetailSeller',
@@ -40,9 +41,13 @@ export default {
   },
   methods: {
     handleToSeller () {
-      console.log('店铺信息', this.sellerInfo)
+      this.$store.commit(SHOP_INFO, {
+        data: this.sellerInfo,
+        callback: () => {
+          this.$router.push('/shop')
+        }
+      })
       return false
-      // this.$router.push('/shop')
     },
     handleAllGoods () {
       console.log('全部宝贝', this.sellerInfo.allGoodsUrl)

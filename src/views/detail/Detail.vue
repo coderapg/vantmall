@@ -10,13 +10,14 @@
       <detail-goods-info :goods-info="goodsInfo" />
       <detail-param-info :param-info="paramInfo" ref="paramInfo" />
       <detail-comments-rate :comment-info="commentInfo" ref="commentInfo" />
+      <goods-list :active-goods="activeGoods" ref="goodsList" />
     </van-list>
     <detail-goods-action />
   </div>
 </template>
 
 <script>
-import { getDetailData, WaresInfo, SellerInfo, GoodsParam } from 'https/detail'
+import { getDetailData, WaresInfo, SellerInfo, GoodsParam, recommendingCommodities } from 'https/detail'
 
 import DetailNavBar from './components/DetailNavBar'
 import DetailSwipe from './components/DetailSwipe'
@@ -26,6 +27,8 @@ import DetailWaresRelated from './components/DetailWaresRelated'
 import DetailGoodsInfo from './components/DetailGoodsInfo'
 import DetailParamInfo from './components/DetailParamInfo'
 import DetailCommentsRate from './components/DetailCommentsRate'
+
+import GoodsList from 'components/content/GoodsList/GoodsList'
 
 export default {
   name: 'Detail',
@@ -37,7 +40,8 @@ export default {
       sellerInfo: {},
       goodsInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      activeGoods: []
     }
   },
   components: {
@@ -48,11 +52,13 @@ export default {
     DetailWaresRelated,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailCommentsRate
+    DetailCommentsRate,
+    GoodsList
   },
   created () {
     const { query: { iid } } = this.$route
     this.getDetailData(iid)
+    this.recommendingCommodities(iid)
   },
   methods: {
     getDetailData (iid) {
@@ -71,7 +77,15 @@ export default {
         this.paramInfo = new GoodsParam(itemParams.info, itemParams.rule)
         // 6. 保存评论信息
         this.commentInfo = rate.cRate !== 0 ? rate.list[0] : {}
-        console.log('123---', this.commentInfo)
+      })
+    },
+    // 获取商品对应的推荐数据
+    recommendingCommodities (iid) {
+      recommendingCommodities(iid).then(res => {
+        const { data: { list }, success } = res
+        if (success) {
+          this.activeGoods = list
+        }
       })
     }
   }

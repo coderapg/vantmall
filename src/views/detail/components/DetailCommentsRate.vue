@@ -22,7 +22,7 @@
 </template>
 
 <script>
-// import { formatDate } from 'common/utils'
+import { formatDate } from 'common/utils'
 
 export default {
   name: 'DetailCommentsRate',
@@ -35,14 +35,10 @@ export default {
       required: true
     }
   },
-  created () {
-    console.log('收到了', this.commentInfo)
-  },
   filters: {
     showDate (value) {
-      // const date = new Date(value * 1000)
-      return '123-456'
-      // return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
+      const date = new Date(value * 1000)
+      return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="goods-list-item" v-if="Object.keys(goodsItem).length > 0">
     <div class="list-item-content" @click="handleGoodsListItmClick">
-      <van-image fit="contain" :src="goodsItem.show.img" />
+      <van-image fit="contain" :src="vantImg" />
       <div class="goods-item-info">
         <p class="title">{{ goodsItem.title }}</p>
         <div class="info-tags" v-if="goodsItem.titleTags">
@@ -30,15 +30,24 @@ export default {
       required: true
     }
   },
+  computed: {
+    vantImg () {
+      return this.goodsItem.show ? this.goodsItem.show.img : this.goodsItem.image
+    }
+  },
   methods: {
     handleGoodsListItmClick () {
-      const { iid } = this.goodsItem
-      this.$router.push({
-        path: '/detail',
-        query: {
-          iid
-        }
-      })
+      if (this.goodsItem.iid) {
+        const { iid } = this.goodsItem
+        this.$router.push({
+          path: '/detail',
+          query: {
+            iid
+          }
+        })
+      } else {
+        console.log('推荐跳转', this.goodsItem)
+      }
     }
   }
 }

@@ -11,6 +11,16 @@ export function getDetailData (iid) {
   })
 }
 
+// 获取详情页中的推荐商品数据
+export function recommendingCommodities (iid) {
+  return request({
+    url: '/recommend',
+    params: {
+      iid
+    }
+  })
+}
+
 // 抽取数据-商品信息
 export class WaresInfo {
   constructor (itemInfo, columns, services) {

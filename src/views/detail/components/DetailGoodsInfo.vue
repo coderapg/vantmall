@@ -39,7 +39,7 @@ export default {
 
 <style lang="less" scoped>
 .goods-info {
-  padding: 30px 8px 0;
+  padding: 20px 8px 0;
   background-color: #fff;
   border-bottom: solid 4px rgba(100, 100, 100, .1);
 }

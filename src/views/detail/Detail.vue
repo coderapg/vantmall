@@ -8,13 +8,14 @@
         <detail-seller :sellerInfo="sellerInfo" />
       </div>
       <detail-goods-info :goods-info="goodsInfo" />
+      <detail-param-info :param-info="paramInfo" ref="paramInfo" />
     </van-list>
     <detail-goods-action />
   </div>
 </template>
 
 <script>
-import { getDetailData, WaresInfo, SellerInfo } from 'https/detail'
+import { getDetailData, WaresInfo, SellerInfo, GoodsParam } from 'https/detail'
 
 import DetailNavBar from './components/DetailNavBar'
 import DetailSwipe from './components/DetailSwipe'
@@ -22,6 +23,7 @@ import DetailGoodsAction from './components/DetailGoodsAction'
 import DetailSeller from './components/DetailSeller'
 import DetailWaresRelated from './components/DetailWaresRelated'
 import DetailGoodsInfo from './components/DetailGoodsInfo'
+import DetailParamInfo from './components/DetailParamInfo'
 
 export default {
   name: 'Detail',
@@ -31,7 +33,8 @@ export default {
       bannerArr: [],
       detailWaresInfo: {},
       sellerInfo: {},
-      goodsInfo: {}
+      goodsInfo: {},
+      paramInfo: {}
     }
   },
   components: {
@@ -40,7 +43,8 @@ export default {
     DetailGoodsAction,
     DetailSeller,
     DetailWaresRelated,
-    DetailGoodsInfo
+    DetailGoodsInfo,
+    DetailParamInfo
   },
   created () {
     const { query: { iid } } = this.$route
@@ -49,8 +53,8 @@ export default {
   methods: {
     getDetailData (iid) {
       getDetailData(iid).then(res => {
-        // columns, isLogin, itemParams, promotions, rate, shopInfo, skuInfo, topBar
-        const { columns, detailInfo, itemInfo, shopInfo } = res.result
+        // isLogin, promotions, rate, shopInfo, skuInfo, topBar
+        const { columns, detailInfo, itemInfo, itemParams, shopInfo } = res.result
         // 1. 详情页轮播图数据
         this.bannerArr = itemInfo.topImages
         // 2. 获取商品信息
@@ -59,6 +63,8 @@ export default {
         this.sellerInfo = new SellerInfo(shopInfo, itemInfo, this.iid)
         // 4. 保存商品的详情数据
         this.goodsInfo = detailInfo
+        // 5. 保存商品的参数信息
+        this.paramInfo = new GoodsParam(itemParams.info, itemParams.rule)
       })
     }
   }
@@ -76,7 +82,7 @@ export default {
   }
   .detail-wares-related {
     background-color: #f0f0f0;
-    padding: 10px 9px 30px 9px;
+    padding: 10px 9px;
     box-sizing: border-box;
     .wares-info {
       background-color: #fff;

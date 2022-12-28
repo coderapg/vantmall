@@ -7,6 +7,7 @@
         <detail-wares-related :detailWaresInfo="detailWaresInfo" />
         <detail-seller :sellerInfo="sellerInfo" />
       </div>
+      <detail-goods-info :goods-info="goodsInfo" />
     </van-list>
     <detail-goods-action />
   </div>
@@ -20,6 +21,7 @@ import DetailSwipe from './components/DetailSwipe'
 import DetailGoodsAction from './components/DetailGoodsAction'
 import DetailSeller from './components/DetailSeller'
 import DetailWaresRelated from './components/DetailWaresRelated'
+import DetailGoodsInfo from './components/DetailGoodsInfo'
 
 export default {
   name: 'Detail',
@@ -28,7 +30,8 @@ export default {
       idx: '',
       bannerArr: [],
       detailWaresInfo: {},
-      sellerInfo: {}
+      sellerInfo: {},
+      goodsInfo: {}
     }
   },
   components: {
@@ -36,7 +39,8 @@ export default {
     DetailSwipe,
     DetailGoodsAction,
     DetailSeller,
-    DetailWaresRelated
+    DetailWaresRelated,
+    DetailGoodsInfo
   },
   created () {
     const { query: { iid } } = this.$route
@@ -45,14 +49,16 @@ export default {
   methods: {
     getDetailData (iid) {
       getDetailData(iid).then(res => {
-        // columns, detailInfo, isLogin, itemParams, promotions, rate, shopInfo, skuInfo, topBar
-        const { columns, itemInfo, shopInfo } = res.result
+        // columns, isLogin, itemParams, promotions, rate, shopInfo, skuInfo, topBar
+        const { columns, detailInfo, itemInfo, shopInfo } = res.result
         // 1. 详情页轮播图数据
         this.bannerArr = itemInfo.topImages
         // 2. 获取商品信息
         this.detailWaresInfo = new WaresInfo(itemInfo, columns, shopInfo.services)
         // 3. 创建商品信息对象
         this.sellerInfo = new SellerInfo(shopInfo, itemInfo, this.iid)
+        // 4. 保存商品的详情数据
+        this.goodsInfo = detailInfo
       })
     }
   }

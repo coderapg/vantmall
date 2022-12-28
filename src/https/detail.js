@@ -43,18 +43,3 @@ export class SellerInfo {
     this.extra = itemInfo.extra
   }
 }
-
-// 整合商品数据
-export class GetGoodsInfo {
-  constructor (columns, itemInfo, promotions) {
-    this.columns = columns
-    this.discountDesc = itemInfo.discountDesc
-    this.iid = itemInfo.iid
-    this.lowNowPrice = itemInfo.lowNowPrice
-    this.lowPrice = itemInfo.lowPrice
-    this.shopId = itemInfo.shopId
-    this.title = itemInfo.title
-    this.userId = itemInfo.userId
-    this.promotionsList = promotions.list
-  }
-}

@@ -1,36 +1,42 @@
 <template>
   <div id="detail">
     <detail-nav-bar />
-    <pull-refresh class="pull-refresh">
+    <van-list offset="100" finished-text="没有更多了">
       <detail-swipe :banner-arr="bannerArr" />
-      <div @click="handleToShop">商铺</div>
-    </pull-refresh>
+      <div class="detail-wares-related">
+        <detail-wares-related :detailWaresInfo="detailWaresInfo" />
+        <detail-seller :sellerInfo="sellerInfo" />
+      </div>
+    </van-list>
     <detail-goods-action />
   </div>
 </template>
 
 <script>
-import { getDetailData } from 'https/detail'
+import { getDetailData, WaresInfo, SellerInfo } from 'https/detail'
 
 import DetailNavBar from './components/DetailNavBar'
 import DetailSwipe from './components/DetailSwipe'
 import DetailGoodsAction from './components/DetailGoodsAction'
-
-import PullRefresh from 'components/common/PullRefresh/PullRefresh'
+import DetailSeller from './components/DetailSeller'
+import DetailWaresRelated from './components/DetailWaresRelated'
 
 export default {
   name: 'Detail',
   data () {
     return {
       idx: '',
-      bannerArr: []
+      bannerArr: [],
+      detailWaresInfo: {},
+      sellerInfo: {}
     }
   },
   components: {
     DetailNavBar,
-    PullRefresh,
     DetailSwipe,
-    DetailGoodsAction
+    DetailGoodsAction,
+    DetailSeller,
+    DetailWaresRelated
   },
   created () {
     const { query: { iid } } = this.$route
@@ -40,20 +46,20 @@ export default {
     getDetailData (iid) {
       getDetailData(iid).then(res => {
         // columns, detailInfo, isLogin, itemParams, promotions, rate, shopInfo, skuInfo, topBar
-        const { columns, itemInfo } = res.result
-        // 详情页轮播图数据
+        const { columns, itemInfo, shopInfo } = res.result
+        // 1. 详情页轮播图数据
         this.bannerArr = itemInfo.topImages
-        console.log('---', columns)
+        // 2. 获取商品信息
+        this.detailWaresInfo = new WaresInfo(itemInfo, columns, shopInfo.services)
+        // 3. 创建商品信息对象
+        this.sellerInfo = new SellerInfo(shopInfo, itemInfo, this.iid)
       })
-    },
-    handleToShop () {
-      this.$router.push('/shop')
     }
   }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
   #detail {
     position: relative;
     left: 0;
@@ -61,5 +67,13 @@ export default {
     top: 0;
     bottom: 0;
     z-index: 9999;
+  }
+  .detail-wares-related {
+    background-color: #f0f0f0;
+    padding: 10px 9px 30px 9px;
+    box-sizing: border-box;
+    .wares-info {
+      background-color: #fff;
+    }
   }
 </style>

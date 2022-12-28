@@ -36,6 +36,10 @@ export default {
 
 <style lang="less" scoped>
   .detail-nav-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
     /deep/ .van-nav-bar__content {
       .van-nav-bar__left {
         .van-icon {
